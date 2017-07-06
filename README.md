@@ -1,4 +1,4 @@
-# graysreef.github.io
+# MBON Connectivity
 
 
 Gray's Reef Bren School Group Project, Github content at https://graysreef.github.io.
