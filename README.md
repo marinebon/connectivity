@@ -2,7 +2,7 @@
 
 Marine Biodiversity Observation Network (MBON) project, Github content at https://marinebon.github.io/connectivity.
 
-For hosted HTML content and scripts for larval dispersal modeling with Bren group project GRAYSREEF
+For hosted HTML content and scripts for larval dispersal modeling with MBON project on connectivity, working with EcoQuants (Ben Best).
 
 
 ## Files
