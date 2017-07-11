@@ -52,6 +52,7 @@ for (p_zip in list.files(dir_hab, '.*\\.zip', full.names=T)){ # p_zip = list.fil
 ```{r create hab_id}
 tif_all  = file.path(dir_data, 'hab_id.tif')
 csv_all  = file.path(dir_data, 'hab_id.csv')
+csv_sources = file.path('hab_sources.csv')
 csv_freq = file.path(dir_data, 'hab_id_freq.csv')
 
 tifs = setdiff(
@@ -64,6 +65,7 @@ d = data_frame(
     name   = str_replace(tifs, '_lzw.tif', ''),
     id     = sapply(c(1e0,1e1,1e2,1e3,1e4,1e5), function(x) x * c(1,2,4)) %>% as.vector(),
     tif_id = sprintf('%s_id.tif', name)); # View(d)
+write_csv(d, csv_sources)
 
 for (i in 1:nrow(d)){ # i=2
 #for (i in 17:nrow(d)){ # i=2
@@ -96,12 +98,24 @@ r_m = stack(list.files(dir_tmp, '.*\\.tif', full.names=T)) %>%
 
 writeRaster(r_m, tif_all, overwrite=T)
 
+# try other formats for ArcGIS ----
+r_m = raster(tif_all)
+for (ext in c('grd','asc','sdat','rst','nc','tif','envi','bil','img')){ # ext='grd'
+  out = sprintf('%s.%s', tools::file_path_sans_ext(tif_all), ext)
+  writeRaster(r_m, out)
+}
+
+
+
+
+writeRaster(r_m, tif_all, overwrite=T)
+
 r_m = raster(tif_all)
 
 hab_in_value = function(val, hab, d){
 # TODO: write function testing habitat for given pixel value, return True or False; 
 #       to be used in dplyr::mutate() on freq() %>% as_tibble() for pixel value rows x hab columns
-# - get digit in eth place (eg 2 for 1e2, ie 3 for 4321) using division modulus and remainder: 4321 %/% 1e2 %% 10 = 3
+# - get digit in eth place (eg 2 for 2e2, ie 3 for 4321) using division modulus and remainder: 4321 %/% 1e2 %% 10 = 3
 # - then use ifelse(value %in% ...
 #   - 1 (eg beach):      c(1,3,5,7)
 #   - 2 (eg coral_reef): c(2,3,6,7)
