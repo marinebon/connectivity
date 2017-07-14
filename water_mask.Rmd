@@ -57,22 +57,25 @@ for (rgn in regions){
     trim() %>%
     mask(buf)
   r_m[r_m==0] = NA # convert land to NA for single mask value
-  writeRaster(r_m, tif_m, overwrite=T, dataType = 'INT1U')
+  writeRaster(r_m, tif_m, dataType ='INT1U', overwrite=T)
 
   # generate patch IDs raster
   r_p = setValues(r_m, 1:ncell(r_m)) %>%
     mask(r_m)
-  writeRaster(r_p, tif_p, overwrite=T, dataType = 'INT4S')
+  writeRaster(r_p, tif_p, dataType ='INT4S', overwrite=T)
   
   # reduce resolution, ie increase pixel size to 9 km
   r_m_9km = aggregate(r_m, fact_9km)
-  writeRaster(r_m_9km, tif_m_9km, overwrite=T, dataType = 'INT1U') 
+  writeRaster(r_m_9km, tif_m_9km, dataType ='INT1U', overwrite=T) 
   
   # generate patch IDs raster
   r_p_9km = setValues(r_m_9km, 1:ncell(r_m_9km)) %>%
     mask(r_m_9km)
-  writeRaster(r_p_9km, tif_p_9km, overwrite=T, dataType = 'INT4S')
+  writeRaster(r_p_9km, tif_p_9km, dataType ='INT4S', overwrite=T)
   
 }
+
+
+
 ```
 
