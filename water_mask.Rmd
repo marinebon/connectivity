@@ -39,18 +39,18 @@ regions  = c('southeast', 'southwest')
 
 # read global water mask raster
 r_m_g = raster(tif_m_g)
-fact_12km = 12000 %/% xres(r_m_g)
+fact_9km = 9000 %/% xres(r_m_g)
 
 for (rgn in regions){
   
   # set region specific paths
-  tif_m     = sprintf('P:/habitats/%s-1km_mask.tif'   , rgn)
-  tif_p     = sprintf('P:/habitats/%s-1km_patchid.tif', rgn)
-  tif_m_12km = sprintf('P:/habitats/%s-12km_mask.tif'   , rgn)
-  tif_p_12km = sprintf('P:/habitats/%s-12km_patchid.tif', rgn)
+  tif_m     = sprintf('P:/habitats/%s_700buf-1km_mask.tif'   , rgn)
+  tif_p     = sprintf('P:/habitats/%s_700buf-1km_patchid.tif', rgn)
+  tif_m_9km = sprintf('P:/habitats/%s_700buf-9km_mask.tif'   , rgn)
+  tif_p_9km = sprintf('P:/habitats/%s_700buf-9km_patchid.tif', rgn)
 
   # read in buffer in same projection as global water mask (Mollweide)
-  buf = readOGR(gdb, sprintf('%s_buf_mol', rgn))
+  buf = readOGR(gdb, sprintf('%s_700buf_mol', rgn))
 
   # generate Water mask raster & patch cover raster
   r_m = crop(r_m_g, buf) %>% # water = 1; land = 0
@@ -65,13 +65,13 @@ for (rgn in regions){
   writeRaster(r_p, tif_p, dataType ='INT4S', overwrite=T)
   
   # reduce resolution, ie increase pixel size to 9 km
-  r_m_12km = aggregate(r_m, fact_12km)
-  writeRaster(r_m_12km, tif_m_12km, dataType ='INT1U', overwrite=T) 
+  r_m_9km = aggregate(r_m, fact_9km)
+  writeRaster(r_m_9km, tif_m_9km, dataType ='INT1U', overwrite=T) 
   
   # generate patch IDs raster
-  r_p_12km = setValues(r_m_12km, 1:ncell(r_m_12km)) %>%
-    mask(r_m_12km)
-  writeRaster(r_p_12km, tif_p_12km, dataType ='INT4S', overwrite=T)
+  r_p_9km = setValues(r_m_9km, 1:ncell(r_m_9km)) %>%
+    mask(r_m_9km)
+  writeRaster(r_p_9km, tif_p_9km, dataType ='INT4S', overwrite=T)
   
 }
 
