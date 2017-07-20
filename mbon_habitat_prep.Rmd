@@ -16,15 +16,23 @@ library(raster)
 library(tidyverse)
 library(stringr)
 library(knitr)
+library(mapview)
+library(marmap) # devtools::install_github('ericpante/marmap')
 
 dir_data = switch(
   R.utils::System$getUsername(),
-  bbest = '/Volumes/Best HD/mbon_data_big')
+  bbest = '/Volumes/Best HD/mbon_data_big',
+  sgad  = 'P:/habitats')
 
-dir_hab = file.path(dir_data, 'halpernetal2015_habitats')
+dir_hab = dir_data
 dir_tmp = file.path(dir_hab, 'tmp')
 dir.create(dir_tmp, showWarnings=F)
 dir.create(dir_hab, showWarnings=F)
+
+
+tif_all  = file.path(dir_data, 'hab_id.tif')
+csv_all  = file.path(dir_data, 'hab_id.csv')
+csv_sources = file.path('hab_sources.csv')
 ```
 
 
@@ -50,11 +58,6 @@ for (p_zip in list.files(dir_hab, '.*\\.zip', full.names=T)){ # p_zip = list.fil
 - [8. Raster data manipulation](http://rspatial.org/spatial/rst/8-rastermanip.html)
 
 ```{r create hab_id}
-tif_all  = file.path(dir_data, 'hab_id.tif')
-csv_all  = file.path(dir_data, 'hab_id.csv')
-csv_sources = file.path('hab_sources.csv')
-csv_freq = file.path(dir_data, 'hab_id_freq.csv')
-
 tifs = setdiff(
   list.files(dir_hab, '*.\\.tif$'),
   c('deep_waters_lzw.tif','habitat_num.tif','surface_waters_lzw.tif','ocean_mask.tif'))
@@ -97,14 +100,39 @@ r_m = stack(list.files(dir_tmp, '.*\\.tif', full.names=T)) %>%
     maskvalue=0) # ocean is 79.3% of earth surface?
 
 writeRaster(r_m, tif_all, overwrite=T)
+```
 
+```{r raster formats}
 # try other formats for ArcGIS ----
 r_m = raster(tif_all)
 for (ext in c('grd','asc','sdat','rst','nc','tif','envi','bil','img')){ # ext='grd'
   out = sprintf('%s.%s', tools::file_path_sans_ext(tif_all), ext)
   writeRaster(r_m, out)
 }
+```
 
+
+```{r}
+r = raster(tif_all)
+se_buf = readOGR('H:/MBON/study_area.gdb', 'southeast_buf_mol')
+tif_se = file.path(dir_hab, 'hab_id_se.tif')
+
+r_se_buf = rasterize(se_buf, r)
+r_se_buf_t = trim(r_se_buf)
+
+
+mapview(r_se_buf)
+
+
+r_se = crop(r, se_buf)
+writeRaster(r_se, tif_se, overwrite=T)
+
+plot(r_se)
+
+mapview(r) %>%
+  viewRGB(r)
+  r_se)
+```
 
 
 
