@@ -84,7 +84,7 @@ agg_rasters = function(tif_m_1km, km_factor=100){
   # tif_m_in = 'P:/habitats/channelislands_700buf-1km_mask.tif'; km_factor=100
   # tif_m_in = 'P:/habitats/channelislands-1km_mask.tif'; km_factor=100
 
-  pfx = str_replace(tif_m, '(.*)-1km_mask.tif', '\\1')
+  pfx = str_replace(tif_m_1km, '(.*)-1km_mask.tif', '\\1')
   tif_m = sprintf('%s-%dkm_mask.tif'        , pfx, km_factor)
   tif_p = sprintf('%s-%dkm_patchid.tif'     , pfx, km_factor)
   tif_c = sprintf('%s-%dkm_percentcover.tif', pfx, km_factor)
@@ -99,6 +99,7 @@ agg_rasters = function(tif_m_1km, km_factor=100){
   r_p = r_m
   r_p[!is.na(r_p)] = 1:sum(!is.na(getValues(r_p))) # plot(r_p)
   as.integer(r_p, filename=tif_p, overwrite=T)
+  p_max = cellStats(r_p, 'max'); if (p_max > 65534) stop(sprintf('DOH! Max(patchid)==%d > 65,534, ie too much of a BIG BOY!', p_max))
 
   # generate percent cover raster
   r_c = r_m
@@ -108,3 +109,10 @@ agg_rasters = function(tif_m_1km, km_factor=100){
 }
 
 #agg_rasters('P:/habitats/channelislands-1km_mask.tif', km_factor=100)
+#agg_rasters('P:/habitats/southwest-1km_mask.tif', km_factor=9)
+agg_rasters('P:/habitats/southeast-1km_mask.tif', km_factor=9)
+#agg_rasters('P:/habitats/southwest_700buf-1km_mask.tif', km_factor=9)
+
+
+
+
