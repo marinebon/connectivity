@@ -25,7 +25,10 @@ runs = csv.DictReader(csv_file)
 
 # iterate over runs
 for run in runs: # run = runs.next()
-	
+
+	if run['do'] == 'FALSE':
+		continue
+
 	# assign variables
 	for var in run.keys():
 		globals()[var] = run[var]
@@ -52,7 +55,8 @@ for run in runs: # run = runs.next()
 
 	# override coordinate system to get past error:
 	#   ValueError: band 1 of GDAL dataset "P:\southwest_2010\10_7_2010_southwest_10day-45km_simulation\PatchData\water_mask" has a different coordinate system than larval density matrix, so it cannot be used as a mask.
-	coord_sys = arcpy.Describe('%s/PatchData/patch_ids' % simulation_dir).spatialReference
+	print '\n**DefineProjection**\n'
+	coord_sys = arcpy.Describe('%s/PatchData/water_mask' % simulation_dir).spatialReference
 	ap.DefineProjection_management('%s/PatchData/patch_ids' % simulation_dir, coord_sys)
 	
 	# Process: Load HYCOM GLBa0.08 Currents Into Larval Dispersal Simulation
@@ -101,6 +105,9 @@ for run in runs: # run = runs.next()
 	# http://code.nicholas.duke.edu/projects/mget/export/1452/MGET/Trunk/PythonPackage/dist/TracOnlineDocumentation/Documentation/ArcGISReference/LarvalDispersal.VisualizeResults2012.html
 	# TODO: mortalityRate=durationDays*0.1; mortalityMethod='A' # eg target 10% at end of PLD
 	# TODO: minimumDispersalType='Probability' OR minimumDispersalType='Quantity'
+	gdb = '%s/output.gdb' % results_dir
+	if os.path.isdir(gdb):
+		shutil.rmtree(gdb, ignore_errors=True)
 	print '\n**LarvalDispersalVisualizeResults2012**\n'
 	ap.LarvalDispersalVisualizeResults2012_GeoEco(
 		simulation_dir, # simulationDirectory
