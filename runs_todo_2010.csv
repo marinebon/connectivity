@@ -1,0 +1,11 @@
+do,yr,pfx,rgn,sfx,startDate,durationDays,hab_sfx
+TRUE,2010,10_7_2010,southwest,10day-45km,10/7/2010,10,-45km
+TRUE,2010,10_7_2010,southwest,20day-45km,10/7/2010,20,-45km
+TRUE,2010,10_7_2010,southwest,30day-45km,10/7/2010,30,-45km
+TRUE,2010,10_7_2010,southwest,40day-45km,10/7/2010,40,-45km
+TRUE,2010,10_7_2010,southwest,50day-45km,10/7/2010,50,-45km
+TRUE,2010,10_7_2010,southeast,10day-45km,10/7/2010,10,-45km
+TRUE,2010,10_7_2010,southeast,20day-45km,10/7/2010,20,-45km
+TRUE,2010,10_7_2010,southeast,30day-45km,10/7/2010,30,-45km
+TRUE,2010,10_7_2010,southeast,40day-45km,10/7/2010,40,-45km
+TRUE,2010,10_7_2010,southeast,50day-45km,10/7/2010,50,-45km

@@ -13,7 +13,7 @@
 import arcpy as ap, shutil, os, csv, sys
 
 # get input arguments
-runs_csv = sys.argv[1] #"P:\\connectivity\\runs_todo.csv"
+runs_csv = "P:\\connectivity\\runs_todo.csv"
 cache_dir = "P:\\MGET_cache"
 
 #gp = arcgisscripting.create()
