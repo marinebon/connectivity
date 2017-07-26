@@ -5,7 +5,7 @@
 # Description: MBON MGET Model Runs
 #To run from command terminal:
 # Start > Run > cmd
-#   P: & cd P:\connectivity\ & C:\Python27\ArcGIS10.4\python.exe mbon_connectivity.py
+#   P: & cd P:\connectivity\ & C:\Python27\ArcGIS10.4\python.exe mbon_connectivity.py runs_todo_xxxx.csv
 # ---------------------------------------------------------------------------
 
 # Import arcpy module
@@ -13,7 +13,7 @@
 import arcpy as ap, shutil, os, csv, sys
 
 # get input arguments
-runs_csv  = "P:\\connectivity\\runs_todo.csv"
+runs_csv = sys.argv[1] #"P:\\connectivity\\runs_todo.csv"
 cache_dir = "P:\\MGET_cache"
 
 #gp = arcgisscripting.create()
