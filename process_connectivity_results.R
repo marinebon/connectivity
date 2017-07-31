@@ -12,10 +12,10 @@ stack  = raster::stack
 # define functions ----
 # makes process_singledir a function with the parameters inside ()
 process_singledir = function(dir_results, dir_simulation, do_csv=T, do_tif=T, do_png=T){
-  # dir_results    = 'G:/Team_Folders/Steph/bsb_2015/2_2_15_FM_bsb_50day_results'
-  # dir_simulation = 'G:/Team_Folders/Steph/bsb_2015/2_2_15_FM_bsb_50day_simulation'
+  # dir_results    = 'P:/southwest_2009/01_25_2009_southwest_10day_700buf-45km_results'
+  # dir_simulation = 'P:/southwest_2009/01_25_2009_southwest_10day_700buf-45km_simulation'
   
-  run = str_replace(basename(dir_results), '_results', '') # run is now equal to a tring that removes all of the path in dir_results and replaces _results with ' ' so that it returns 2_2_15_FM_bsb_50day 
+  run = str_replace(basename(dir_results), '_results', '') # run is now equal to a tring that removes all of the path in dir_results and replaces _results with ' ' so that it returns 01_25_2009_southwest_10day_700buf-45km
   
   # # conn_lns (connectivity lines) reads the geodatabase called 'output.gdb' for the 'connectivity feature line class
   conn_lns = readOGR(file.path(dir_results, 'output.gdb'), 'Connectivity', verbose=F)
@@ -66,6 +66,7 @@ process_singledir = function(dir_results, dir_simulation, do_csv=T, do_tif=T, do
 }
 
 
+
 process_yr_dirs = function(dir_yr, ...){
   # process all model runs for given species & year
   
@@ -82,27 +83,20 @@ process_yr_dirs = function(dir_yr, ...){
   }
 }
 
-process_yr_dirs('P:/southwest_2010')
-process_yr_dirs('P:/southwest_2011')
-process_yr_dirs('P:/southwest_2009')
+
+
+# process_yr_dirs('P:/southwest_2010')
+# process_yr_dirs('P:/southwest_2011')
+# process_yr_dirs('P:/southwest_2009')
 
 
 
 
+## need to fix to seperate PLDs
 
-
-
-
-
-
-
-
-
-
-
-summarize_sppyr = function(dir_sppyr){
+summarize_yr = function(dir_yr){
   
-  dirs_results = list.files(dir_sppyr, '.*_results$', full.names=T)
+  dirs_results = list.files(dir_yr, '.*_results$', full.names=T)
   rasters_quantity = sprintf('%s/quantity.tif', dirs_results)
   stack_quantity = stack(rasters_quantity) #gathers all the rasters_quantity together
   
@@ -394,12 +388,6 @@ ggplotly(p)
 plot(r)
 
 
-
-# todo ----
-# - create github.com/graysreef organization
-# - create R package inside github.com/graysreef/mget-conn-process repository
-#     using http://ucsb-bren.github.io/env-info/wk07_package.html
-# - create Dan's plot: x) cumulative percent larvel input vs y) area of included ranked patches
 
 #Process for percent instead of quanity----
 # 
