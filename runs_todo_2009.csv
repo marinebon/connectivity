@@ -1,9 +1,9 @@
 do,yr,pfx,rgn,sfx,startDate,durationDays,hab_sfx
-TRUE,2009,10_17_2009,southwest,10day_700buf-45km,10/17/2009,10,_700buf-45km
-TRUE,2009,10_17_2009,southwest,30day_700buf-45km,10/17/2009,30,_700buf-45km
-TRUE,2009,01_25_2009,southwest,10day_700buf-45km,1/25/2009,10,_700buf-45km
-TRUE,2009,01_25_2009,southwest,30day_700buf-45km,1/25/2009,30,_700buf-45km
-TRUE,2009,04_24_2009,southwest,10day_700buf-45km,4/24/2009,10,_700buf-45km
-TRUE,2009,04_24_2009,southwest,30day_700buf-45km,4/24/2009,30,_700buf-45km
-TRUE,2009,07_21_2009,southwest,10day_700buf-45km,7/21/2009,10,_700buf-45km
-TRUE,2009,07_21_2009,southwest,30day_700buf-45km,7/21/2009,30,_700buf-45km
+FALSE,2009,10_17_2009,southwest,10day_700buf-45km,10/17/2009,10,_700buf-45km
+FALSE,2009,10_17_2009,southwest,30day_700buf-45km,10/17/2009,30,_700buf-45km
+FALSE,2009,01_25_2009,southwest,10day_700buf-45km,1/25/2009,10,_700buf-45km
+FALSE,2009,01_25_2009,southwest,30day_700buf-45km,1/25/2009,30,_700buf-45km
+FALSE,2009,04_24_2009,southwest,10day_700buf-45km,4/24/2009,10,_700buf-45km
+FALSE,2009,04_24_2009,southwest,30day_700buf-45km,4/24/2009,30,_700buf-45km
+FALSE,2009,07_21_2009,southwest,10day_700buf-45km,7/21/2009,10,_700buf-45km
+FALSE,2009,07_21_2009,southwest,30day_700buf-45km,7/21/2009,30,_700buf-45km
