@@ -122,5 +122,8 @@ agg_rasters = function(tif_m_1km, km_factor=100){
 #agg_rasters('P:/habitats/southwest-1km_mask.tif', km_factor=45) 
 #agg_rasters('P:/habitats/southeast-1km_mask.tif', km_factor=45)
 
-agg_rasters('P:/habitats/southeast_700buf-1km_mask.tif', km_factor=45)
-agg_rasters('P:/habitats/southwest_700buf-1km_mask.tif', km_factor=45)
+# agg_rasters('P:/habitats/southeast_700buf-1km_mask.tif', km_factor=45)
+# agg_rasters('P:/habitats/southwest_700buf-1km_mask.tif', km_factor=45)
+
+agg_rasters('P:/habitats/southeast_700buf-1km_mask.tif', km_factor=54)
+agg_rasters('P:/habitats/southwest_700buf-1km_mask.tif', km_factor=54)
