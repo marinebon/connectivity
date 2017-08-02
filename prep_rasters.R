@@ -26,7 +26,8 @@ csv_all     = file.path(dir_data, 'hab_id.csv')
 csv_sources = file.path('hab_sources.csv')
 tif_m_g     = file.path(dir_data, 'ocean_mask.tif')
 gdb         = 'H:/MBON/study_area.gdb'
-regions     = c('southeast', 'southwest', 'channelislands')
+# regions     = c('southeast', 'southwest', 'channelislands')
+regions     = c('fknms_700buf','mbnms_700buf')
 redo        = FALSE
 
 # read global water mask raster
@@ -43,7 +44,7 @@ for (rgn in regions){ # rgn = 'channelislands'
   if (!file.exists(tif_m)){
     
     # read in buffer in same projection as global water mask (Mollweide)
-    buf = readOGR(gdb, sprintf('%s_buf_mol', rgn))
+    buf = readOGR(gdb, sprintf('%s_mol', rgn))
     #buf = readOGR(gdb, 'channelislands') # TODO: resolve difference w/ other regions
     
     # generate Water mask raster & patch cover raster
@@ -78,7 +79,7 @@ for (rgn in regions){ # rgn = 'channelislands'
   }
 }
 
-agg_rasters = function(tif_m_1km, km_factor=100){
+agg_rasters = function(tif_m_1km, km_factor=9){
   # tif_m should end with: "-1km_mask.tif"
   #
   # tif_m_in = 'P:/habitats/channelislands_700buf-1km_mask.tif'; km_factor=100
@@ -108,6 +109,10 @@ agg_rasters = function(tif_m_1km, km_factor=100){
   
 }
 
+agg_rasters('P:/habitats/fknms_700buf-1km_mask.tif', km_factor=9)
+agg_rasters('P:/habitats/mbnms_700buf-1km_mask.tif', km_factor=9)
+
+#Southwest and southeast rasters----
 #agg_rasters('P:/habitats/channelislands-1km_mask.tif', km_factor=100)
 #agg_rasters('P:/habitats/southwest-1km_mask.tif', km_factor=9)
 #agg_rasters('P:/habitats/southeast-1km_mask.tif', km_factor=9)
@@ -124,6 +129,5 @@ agg_rasters = function(tif_m_1km, km_factor=100){
 
 # agg_rasters('P:/habitats/southeast_700buf-1km_mask.tif', km_factor=45)
 # agg_rasters('P:/habitats/southwest_700buf-1km_mask.tif', km_factor=45)
-
-agg_rasters('P:/habitats/southeast_700buf-1km_mask.tif', km_factor=54)
-agg_rasters('P:/habitats/southwest_700buf-1km_mask.tif', km_factor=54)
+# agg_rasters('P:/habitats/southeast_700buf-1km_mask.tif', km_factor=54)
+# agg_rasters('P:/habitats/southwest_700buf-1km_mask.tif', km_factor=54)
