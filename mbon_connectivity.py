@@ -37,8 +37,8 @@ for run in runs: # run = runs.next()
 	watermask_tif    = "P:\\habitats\\{region}{habitatsuffix}_mask.tif".format(region=rgn, habitatsuffix=hab_sfx)
 	patchid_tif      = "P:\\habitats\\{region}{habitatsuffix}_patchid.tif".format(region=rgn, habitatsuffix=hab_sfx)
 	pctcover_tif     = "P:\\habitats\\{region}{habitatsuffix}_percentcover.tif".format(region=rgn, habitatsuffix=hab_sfx)
-	simulation_dir 	 = "P:\\{region}_{year}\\{prefix}_{region}_{suffix}_simulation".format(year=yr, prefix=pfx, region=rgn, suffix=sfx)
-	results_dir      = "P:\\{region}_{year}\\{prefix}_{region}_{suffix}_results".format(year=yr, prefix=pfx, region=rgn, suffix=sfx)
+	simulation_dir 	 = "P:\\{region}_{year}\\{suffix}\\{prefix}_{region}_{suffix}_simulation".format(year=yr, prefix=pfx, region=rgn, suffix=sfx)
+	results_dir      = "P:\\{region}_{year}\\{suffix}\\{prefix}_{region}_{suffix}_results".format(year=yr, prefix=pfx, region=rgn, suffix=sfx)
 	print os.path.basename(simulation_dir)
 
 	# Process: Create Larval Dispersal Simulation From ArcGIS Rasters
