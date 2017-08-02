@@ -92,7 +92,8 @@ process_yr_dirs = function(dir_yr, ...){
 
 
 
-## need to fix to seperate PLDs
+#################Rest of script still needs to be converted from Gray's Reef to MBON connectivity###################
+
 
 summarize_yr = function(dir_yr){
   
