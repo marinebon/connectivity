@@ -109,8 +109,10 @@ agg_rasters = function(tif_m_1km, km_factor=9){
   
 }
 
-agg_rasters('P:/habitats/fknms_700buf-1km_mask.tif', km_factor=9)
-agg_rasters('P:/habitats/mbnms_700buf-1km_mask.tif', km_factor=9)
+# agg_rasters('P:/habitats/fknms_700buf-1km_mask.tif', km_factor=9)
+# agg_rasters('P:/habitats/mbnms_700buf-1km_mask.tif', km_factor=9)
+ agg_rasters('P:/habitats/fknms_700buf-1km_mask.tif', km_factor=18)
+ agg_rasters('P:/habitats/mbnms_700buf-1km_mask.tif', km_factor=18)
 
 #Southwest and southeast rasters----
 #agg_rasters('P:/habitats/channelislands-1km_mask.tif', km_factor=100)
