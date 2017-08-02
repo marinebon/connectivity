@@ -27,7 +27,7 @@ csv_sources = file.path('hab_sources.csv')
 tif_m_g     = file.path(dir_data, 'ocean_mask.tif')
 gdb         = 'H:/MBON/study_area.gdb'
 # regions     = c('southeast', 'southwest', 'channelislands')
-regions     = c('fknms_700buf','mbnms_700buf')
+regions     = c('fknms_500buf','mbnms_500buf')
 redo        = FALSE
 
 # read global water mask raster
@@ -111,9 +111,19 @@ agg_rasters = function(tif_m_1km, km_factor=9){
 
 # agg_rasters('P:/habitats/fknms_700buf-1km_mask.tif', km_factor=9)
 # agg_rasters('P:/habitats/mbnms_700buf-1km_mask.tif', km_factor=9)
- agg_rasters('P:/habitats/fknms_700buf-1km_mask.tif', km_factor=18)
- agg_rasters('P:/habitats/mbnms_700buf-1km_mask.tif', km_factor=18)
+# agg_rasters('P:/habitats/fknms_700buf-1km_mask.tif', km_factor=18)
+# agg_rasters('P:/habitats/mbnms_700buf-1km_mask.tif', km_factor=18)
+# agg_rasters('P:/habitats/fknms_700buf-1km_mask.tif', km_factor=27)
+# agg_rasters('P:/habitats/mbnms_700buf-1km_mask.tif', km_factor=27)
+# agg_rasters('P:/habitats/fknms_700buf-1km_mask.tif', km_factor=45)
+# agg_rasters('P:/habitats/mbnms_700buf-1km_mask.tif', km_factor=45)
+# agg_rasters('P:/habitats/fknms_500buf-1km_mask.tif', km_factor=45)
+# agg_rasters('P:/habitats/mbnms_500buf-1km_mask.tif', km_factor=45)
+agg_rasters('P:/habitats/fknms_500buf-1km_mask.tif', km_factor=27)
+agg_rasters('P:/habitats/mbnms_500buf-1km_mask.tif', km_factor=27)
 
+ 
+ 
 #Southwest and southeast rasters----
 #agg_rasters('P:/habitats/channelislands-1km_mask.tif', km_factor=100)
 #agg_rasters('P:/habitats/southwest-1km_mask.tif', km_factor=9)
