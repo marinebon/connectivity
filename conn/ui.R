@@ -5,11 +5,10 @@ shinyUI(fluidPage(
   sidebarLayout(
     
     sidebarPanel(
-      editModUI("editmap"),
-      p(),
+      shiny::selectInput('sel_dir','Direction',c('Import','Export')),
       actionButton("update", "Update")),
     
     mainPanel(
-      leafletOutput("mymap")))
+      leafletOutput("map")))
 
 ))
