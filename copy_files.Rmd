@@ -1,0 +1,116 @@
+---
+title: "copy_files"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Paths
+
+
+- P:/mbnms_2009/10day_300buf-27km/01_25_2009_mbnms_10day_300buf-27km_results
+- P:/habitats/mbnms_300buf-27km_patchid.tif
+
+```{r copy files}
+library(tidyverse)
+library(rgdal)
+
+drv_beg = 'P:'
+drv_end = '//tsclient/Best HD/mbon_data_big/connectivity'
+
+sanctuaries = c('fknms','mbnms')
+yrs = 2009:2011
+plds = c(10,30,50)
+bufs = c(300,500)
+cellsizes = c(27,45)
+dates = c('01_25_2009','04_24_2009','07_21_2009','10_17_2009')
+
+rm('d')
+for (sanctuary in sanctuaries){ # sanctuary='mbnms'
+  for (buf in bufs){
+    for (cellsize in cellsizes){
+      
+      tid = sprintf(
+        'habitats/%s_%dbuf-%dkm_patchid.tif',
+        sanctuary, buf, cellsize)
+      tid_beg = sprintf('%s/%s', drv_beg, tid)
+      tid_end = sprintf('%s/%s', drv_end, tid)
+      
+      #if (!file.exists(tid_beg)) next
+      
+      if (file.exists(tid_beg)){
+        cat(sprintf('copying %s\n', tid_beg))
+        if (!file.exists(tid_end)){
+          dir.create(dirname(tid_end), recursive = T, showWarnings = F)
+          file.copy(tid_beg, tid_end, recursive=T)
+        }
+      }
+      
+      for (yr in yrs){
+        for (pld in plds){
+          for (date in dates){ # date = '01_25_2009'
+            csv = sprintf(
+              '%s_%d/%dday_%dbuf-%dkm/%s_%s_%dday_%dbuf-%dkm_results/connectivity.csv',
+              sanctuary, yr, pld, buf, cellsize, date, sanctuary, pld, buf, cellsize)
+            gdb = sprintf(
+              '%s_%d/%dday_%dbuf-%dkm/%s_%s_%dday_%dbuf-%dkm_results/output.gdb',
+              sanctuary, yr, pld, buf, cellsize, date, sanctuary, pld, buf, cellsize)
+            gdb_beg = sprintf('%s/%s', drv_beg, gdb)
+            gdb_end = sprintf('%s/%s', drv_end, gdb)
+            csv_beg = sprintf('%s/%s', drv_beg, csv)
+            csv_end = sprintf('%s/%s', drv_end, csv)
+            
+            if (!dir.exists(gdb_beg)) next
+            
+            if (file.exists(gdb_beg)){
+              unlink(gdb_end, recursive=T, force=T)
+            }
+            
+            #if (!file.exists(csv_beg)){
+              conn_lns = readOGR(gdb_beg, 'Connectivity', verbose=F)
+              conn_lns@data %>%
+                write_csv(csv_beg)
+                #read_csv(csv_beg) %>% head()
+            #}
+  
+            cat(sprintf('  copying %s\n', csv_beg))
+            if (file.exists(csv_end)) unlink(csv_end)
+            dir.create(dirname(csv_end), recursive = T, showWarnings = F)
+            #file.copy(csv_beg, csv_end) # only 4kb files over terminal client
+            #browser()
+            cmd = sprintf(
+              'copy "%s" "%s"', 
+              stringr::str_replace_all(csv_beg, '/', '\\\\'),
+              stringr::str_replace_all(csv_end, '/', '\\\\'))
+            #system(cmd)
+            shell(cmd)
+            
+            d1 = frame_data(
+              ~sanctuary, ~yr, ~pld, ~buf, ~cellsize, ~date,    ~gdb,         ~gdb_exists,    ~csv,    ~tid,         ~tid_exists,
+               sanctuary,  yr,  pld,  buf,  cellsize,  date, gdb_beg, dir.exists(gdb_beg), csv_beg, tid_beg, file.exists(tid_beg))
+            
+            if (!exists('d')){
+              d = d1
+            } else {
+              d = bind_rows(d, d1)
+            }
+
+          }
+        }
+      }
+    }
+  }
+}
+
+write_csv(d, 'copy_files.csv')
+
+# d %>%
+#   filter(sanctuary=='fknms', buf==300, cellsize==27) %>%
+#   .$gdb
+
+# missing output.gdb's:
+#  P:/habitats/fknms_500buf-27km_patchid.tif
+#  P:/habitats/mbnms_500buf-27km_patchid.tif
+```

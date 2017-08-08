@@ -114,24 +114,37 @@ for (ext in c('grd','asc','sdat','rst','nc','tif','envi','bil','img')){ # ext='g
 
 ```{r}
 r = raster(tif_all)
-se_buf = readOGR('H:/MBON/study_area.gdb', 'southeast_buf_mol')
-tif_se = file.path(dir_hab, 'hab_id_se.tif')
+mbnms_buf = readOGR('H:/MBON/study_area.gdb', 'mbnms_500buf_mol')
+tif_mbnms = file.path(dir_hab, 'hab_id_mbnms_500buf.tif')
+fknms_buf = readOGR('H:/MBON/study_area.gdb', 'fknms_500buf_mol')
+tif_fknms = file.path(dir_hab, 'hab_id_fknms_500buf.tif')
 
-r_se_buf = rasterize(se_buf, r)
-r_se_buf_t = trim(r_se_buf)
+r_mbnms_buf = rasterize(mbnms_buf, r)
+r_mbnms_buf_t = trim(r_mbnms_buf)
+r_fknms_buf = rasterize(fknms_buf, r)
+r_fknms_buf_t = trim(r_fknms_buf)
+
+# getting Error: cannot allocate vector of size 2.8 Gb
+mapview(r_mbnms_buf)
+mapview(r_fknms_buf)
 
 
-mapview(r_se_buf)
+r_mbnms = crop(r, fknms_buf)
+writeRaster(r_mbnms, tif_mbnms, overwrite=T)
+r_fknms = crop(r,fknms_buf)
+writeRaster(r_fknms, tif_fknms, overwrite=T)
 
+plot(r_mbnms)
+plot(r_fknms)
 
-r_se = crop(r, se_buf)
-writeRaster(r_se, tif_se, overwrite=T)
-
-plot(r_se)
-
+# getting Error: cannot allocate vector of size 2.8 Gb
 mapview(r) %>%
   viewRGB(r)
-  r_se)
+  r_mbnms
+  
+#aggregate up to raster cell size
+  
+
 ```
 
 

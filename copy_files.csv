@@ -1,0 +1,2 @@
+sanctuary,yr,pld,buf,cellsize,date,gdb,gdb_exists,csv,tid,tid_exists
+fknms,2009,10,300,27,01_25_2009,P:/fknms_2009/10day_300buf-27km/01_25_2009_fknms_10day_300buf-27km_results/output.gdb,TRUE,P:/fknms_2009/10day_300buf-27km/01_25_2009_fknms_10day_300buf-27km_results/connectivity.csv,P:/habitats/fknms_300buf-27km_patchid.tif,TRUE

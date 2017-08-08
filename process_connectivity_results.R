@@ -12,10 +12,10 @@ stack  = raster::stack
 # define functions ----
 # makes process_singledir a function with the parameters inside ()
 process_singledir = function(dir_results, dir_simulation, do_csv=T, do_tif=T, do_png=T){
-  # dir_results    = 'P:/southwest_2009/01_25_2009_southwest_10day_700buf-45km_results'
+  # dir_results    = 'P:/mbnms_2009/10day_300buf-27km/01_25_2009_mbnms_10day_300buf-27km_results'
   # dir_simulation = 'P:/southwest_2009/01_25_2009_southwest_10day_700buf-45km_simulation'
   
-  run = str_replace(basename(dir_results), '_results', '') # run is now equal to a tring that removes all of the path in dir_results and replaces _results with ' ' so that it returns 01_25_2009_southwest_10day_700buf-45km
+  run = str_replace(basename(dir_results), '_results', '') # run is now equal to a string that removes all of the path in dir_results and replaces _results with ' ' so that it returns 01_25_2009_southwest_10day_700buf-45km
   
   # # conn_lns (connectivity lines) reads the geodatabase called 'output.gdb' for the 'connectivity feature line class
   conn_lns = readOGR(file.path(dir_results, 'output.gdb'), 'Connectivity', verbose=F)
@@ -88,7 +88,26 @@ process_yr_dirs = function(dir_yr, ...){
 # process_yr_dirs('P:/southwest_2010')
 # process_yr_dirs('P:/southwest_2011')
 # process_yr_dirs('P:/southwest_2009')
+# process_yr_dirs('P:/mbnms_2009/10day_300buf-27km')
+# process_yr_dirs('P:/mbnms_2009/30day_300buf-27km')
+process_yr_dirs('P:/mbnms_2009/50day_300buf-27km')
+process_yr_dirs('P:/mbnms_2009/10day_500buf-45km')
+process_yr_dirs('P:/mbnms_2009/30day_500buf-45km')
+process_yr_dirs('P:/mbnms_2009/50day_500buf-45km')
 
+process_yr_dirs('P:/mbnms_2010/10day_300buf-27km')
+process_yr_dirs('P:/mbnms_2010/30day_300buf-27km')
+process_yr_dirs('P:/mbnms_2010/50day_300buf-27km')
+process_yr_dirs('P:/mbnms_2010/10day_500buf-45km')
+process_yr_dirs('P:/mbnms_2010/30day_500buf-45km')
+process_yr_dirs('P:/mbnms_2010/50day_500buf-45km')
+
+process_yr_dirs('P:/mbnms_2011/10day_300buf-27km')
+process_yr_dirs('P:/mbnms_2011/30day_300buf-27km')
+process_yr_dirs('P:/mbnms_2011/50day_300buf-27km')
+process_yr_dirs('P:/mbnms_2011/10day_500buf-45km')
+process_yr_dirs('P:/mbnms_2011/30day_500buf-45km')
+process_yr_dirs('P:/mbnms_2011/50day_500buf-45km')
 
 
 
