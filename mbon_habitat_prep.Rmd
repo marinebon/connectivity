@@ -22,7 +22,7 @@ library(marmap) # devtools::install_github('ericpante/marmap')
 dir_data = switch(
   R.utils::System$getUsername(),
   bbest = '/Volumes/Best HD/mbon_data_big',
-  sgad  = 'P:/habitats')
+  sgad  = 'P:/habitats') 
 
 dir_hab = dir_data
 dir_tmp = file.path(dir_hab, 'tmp')
